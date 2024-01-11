@@ -12,25 +12,22 @@ class node() :
         
     def dicho(listKeys,key) :
         t=len(listKeys)-1
-        d, f = 0, t
-        if (listKeys[f] == key) :
-            return (True,f)
-        elif (d < t and listKeys[d] == key) :
-            return (True, d)
-        
-        while (f-d > 1) :
+        d, f = 0, t        
+        while (f>= d) :
             m=(d+f)//2
-
-            if (listKeys[m]>=key):
-                f=m
-                if ( f< t and listKeys[f] == key) :
-                    return (True,f)
-            else :
-                d=m
-                if (d < t and listKeys[d] == key) :
-                    return (True, d)            
             
-        return (False,0)
+            if (listKeys[m]==key) :
+                return m
+            if (listKeys[m]>key):
+                f=m - 1
+                #if ( f< t and listKeys[f] == key) :
+                 #   return True,f
+            else :
+                d=m + 1
+                #if (d < t and listKeys[d] == key) :
+                 #   return True, d           
+            
+        return -1
     
         
     #def getSizeNode() :
