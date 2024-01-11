@@ -1,12 +1,14 @@
 class node() :
     
-    def __init__(self,size,keys,child,leaf) :
-        self.size=size
+    def __init__(self,keys,child,kmin,kmax) :
         self.keys=keys
         self.child=child
-        self.leaf=leaf
+        self.kmin=kmin
+        self.kmax=kmax
     
-    #def getSize() :
+    #def getSizeNode() :
     #def getPos() :
-    #def setNew() :
-    #def 
+    #def setNewChild() :
+    #def removeChild() :
+    #def getSize() :
+    #def isLeaf() :
