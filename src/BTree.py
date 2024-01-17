@@ -1,8 +1,13 @@
 class Btree() :
     
-    def __init__(self,name,root) :
-        self.name=name
-        self.root=root
+    def __init__(self, root) :
+        self.root = root
+        
+    def recherche(self, valeur):
+        if (self.root != None) :
+            index = 0
+            while index 
+            
     
     #def search() :
     #def insertion():

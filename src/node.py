@@ -1,16 +1,23 @@
+import util
+
 class node() :
     
-    def __init__(self,keys,child,kmin,kmax) :
-        self.keys=keys
-        self.child=child
-        self.kmin=kmin
-        self.kmax=kmax
+    def __init__(self, k, kmin, kmax) :
+        self.keys = []
+        self.childs = []
+        self.kmin = kmin
+        self.kmax = kmax
+        
+    def search(self, Key):
+        return util.recherche_dichotomique(key, self.childs)
+            
+    def getSize(self) :
+        return len(Keys)
     
-    #def search(key) :
+    def addKey(self) :
         
         
-        
-    def dicho(listKeys,key) :
+    def dicho(self, listKeys,key) :
         t=len(listKeys)-1
         d, f = 0, t        
         while (f>= d) :
@@ -33,10 +40,6 @@ class node() :
     #def getSizeNode() :
     #def getPos() :
     #def setNewChild() :
-    #def removeChild() :
-        
-    def getSize(listKey) :
-        return len(listKey)
-    
+    #def removeChild() :    
     
     #def isLeaf() :
