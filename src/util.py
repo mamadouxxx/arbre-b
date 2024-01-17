@@ -35,26 +35,46 @@ def recherche_dichotomique(x, l, cmp = compare):
     :Exemples:
 
     >>> recherche_dichotomique(1, [])
-    (False, -1)
+    (False, 0)
     >>> l = list(range(10))
     >>> recherche_dichotomique(5, l)
     (True, 5)
     >>> recherche_dichotomique(5.5, l)
-    (False, -1)
+    (False, 6)
     """
-    n = len(l)
-    debut, fin = 0, n
+    taille = len(l)
+    debut, fin = 0, taille
     index = 0
     while debut < fin:
-        m = (debut + fin)//2
-        if cmp(x, l[m]) == 0:
-            return (True, m)
-        elif cmp(x, l[m]) > 0:
-            index += m
-            debut = m + 1
+        milieu = (debut + fin)//2
+        if cmp(x, l[milieu]) == 0:
+            return (True, milieu)
+        elif cmp(x, l[milieu]) > 0:
+            index = milieu +1
+            debut = milieu + 1
         else:
-            fin = m
-            index = 0
-    return (False, -1)
+            fin = milieu
+            index = milieu
+    return (False, index)
+
+## LOIC
+    def dicho(self, listKeys,key) :
+        t=len(listKeys)-1
+        d, f = 0, t        
+        while (f>= d) :
+            m=(d+f)//2
+            
+            if (listKeys[m]==key) :
+                return m
+            if (listKeys[m]>key):
+                f=m - 1
+                #if ( f< t and listKeys[f] == key) :
+                 #   return True,f
+            else :
+                d=m + 1
+                #if (d < t and listKeys[d] == key) :
+                 #   return True, d           
+            
+        return -1
 
 doctest.testmod()
