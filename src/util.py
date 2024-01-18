@@ -49,7 +49,7 @@ def recherche_dichotomique(x, l, cmp = compare):
     """
     # précondition : liste triée
     assert all(l[k] <= l[k+1] for k in range(len(l) - 1))
-    # votre code ici sans le return
+    
     taille = len(l)
     debut, fin = 0, taille
     index = 0
@@ -63,11 +63,11 @@ def recherche_dichotomique(x, l, cmp = compare):
         else:
             fin = milieu
             index = milieu
+            
     # postcondition
     assert 0 <= index <= len(l)
     assert all(j < index and l[j] < x or l[j] >= x
                    for j in range(len(l)))
-    # retour
     return (False, index)
 
 ## LOIC
