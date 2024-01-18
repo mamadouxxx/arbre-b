@@ -7,15 +7,10 @@ class Btree() :
         self.root = root
         self.k = k
         
-    def search(self, value, node=self.root):
-        (found, index) = node.search(value)
-        if (found):
-            return (node, index)
-        elif ( node.isLeaf() ):
-            return None
-        else :
-            self.search(value, node.childs[index])
-            
+    def search(self, value):
+        return self.root.search(value)
+
+# incomplet
     def insertion(self, value):
         if (self.root == None):
             self.root = Bnode.Node(self.k)
@@ -24,6 +19,10 @@ class Btree() :
             if ( len(self.root) ==  self.k):
                 new_root = Bnode.Node(self.k)
                 new_root.childs[0] = self.root
+                
+                if (self)
+            else:
+                self.root.insert_not_full(value)
             
         
         
