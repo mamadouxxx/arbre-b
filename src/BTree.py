@@ -1,4 +1,5 @@
-import Node as Bnode
+#import Node as Bnode
+from node import *
 
 
 class Btree() :
@@ -11,18 +12,35 @@ class Btree() :
         return self.root.search(value)
 
 # incomplet
-    def insertion(self, value):
-        if (self.root == None):
-            self.root = Bnode.Node(self.k)
-            self.root.keys[0] = value
-        else :
-            if ( len(self.root) ==  self.k):
-                new_root = Bnode.Node(self.k)
-                new_root.childs[0] = self.root
-                
-                if (self)
-            else:
-                self.root.insert_not_full(value)
+#     def insertion(self, value):
+#         
+#         if (self.root == None):
+#             self.root = Bnode.Node(self.k)
+#             self.root.keys[0] = value
+#         else :
+#             if ( len(self.root) ==  self.k):
+#                 new_root = Bnode.Node(self.k)
+#                 new_root.childs[0] = self.root
+#                 
+#                 if (self) :
+#                     ##TODO
+#                     return None
+#             else:
+#                 self.root.insert_not_full(value)
+#
+
+    def insertion(self,value):
+        """
+        >>> Node([5,25]).insertion(10)
+        Node([5,10,25])
+        >>> Node([]).insertion(1)
+        Node([1])
+        >>> Node([5,25]).insertion(50)
+        Node([5,25,50])
+        """
+        
+        
+        
             
         
         
@@ -41,3 +59,8 @@ class Btree() :
     #def getSize () :
     #def changeRoot() :
     #def isEqual() :
+                
+                
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=True)

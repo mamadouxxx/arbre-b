@@ -70,24 +70,6 @@ def recherche_dichotomique(x, l, cmp = compare):
                    for j in range(len(l)))
     return (False, index)
 
-## LOIC
-    def dicho(self, listKeys,key) :
-        t=len(listKeys)-1
-        d, f = 0, t        
-        while (f>= d) :
-            m=(d+f)//2
-            
-            if (listKeys[m]==key) :
-                return m
-            if (listKeys[m]>key):
-                f=m - 1
-                #if ( f< t and listKeys[f] == key) :
-                 #   return True,f
-            else :
-                d=m + 1
-                #if (d < t and listKeys[d] == key) :
-                 #   return True, d           
-            
-        return -1
-
-doctest.testmod()
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=True)
