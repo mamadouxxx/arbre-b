@@ -21,10 +21,15 @@ class Node() :
     
     def search(self, value):
         """
-        >>> Node([5, 25]).search(5)
-        (Node([5, 25]),0)
-        >>> Node([5,25],[Node[1],Node[18],Node[100]]).search(18)
-        (Node[18],0)
+        Exemple(s):
+        >>> Node([5,25]).search(5)
+        (Node([5, 25]), 0)
+        >>> Node([12, 42]).search(12)
+        (Node([12, 42]), 0)
+        >>> Node([12, 42]).search(1)
+        >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).search(1)
+        (Node([1]), 0)
+        >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).search(2)
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (found):
@@ -32,7 +37,7 @@ class Node() :
         elif ( self.isLeaf() ):
             return None
         else :
-            self.childs[index].search(value)
+            return self.childs[index].search(value)
     
     def insert(self, value, k):
         """
@@ -41,20 +46,32 @@ class Node() :
         >>> Node([5,15]).insert(20, 4)
         Node([5,15,20])
         """
-        (found, index) = self.search(value)
-        if (self.isLeaf()) :
-            if (not found):
+        (node, index) = self.search(value)
+        if (node == None) :
+            if (self.isLeaf()):
                 self.keys.insert(index, value)
-        else :
-            (fini, milieu, g, d) = self.childs[index].insert(value, k)
-            if not fini:
-                return None
-            #TODO
-        if (len(self.keys) > k) :
-            (m, g, d) = self.splitNode()
-            f = False
-        else:
-            return None
+            else:
+                (fini, milieu, g, d) = self.childs[index].insert(value, k)
+                if (not fini) :
+                    self.keys.insert(index, milieu)
+                    self.childs[index] = g
+                    self.childs.insert(index+1, d)
+            
+                    
+            
+                    
+            
+            
+#         else :
+#             (fini, milieu, g, d) = self.childs[index].insert(value, k)
+#             if not fini:
+#                 return None
+#             #TODO
+#         if (len(self.keys) > k) :
+#             (m, g, d) = self.splitNode()
+#             f = False
+#         else:
+#             return None
             #TODO
             
 
@@ -66,14 +83,23 @@ class Node() :
     def splitNode(self) :
         """
         >>> Node([10,20,25]).splitNode()
-        (20, Node([10]), Node([25])
+        (20, Node([10]), Node([25]))
+        >>> Node([12, 20, 22, 40]).splitNode()
+        (22, Node([12, 20]), Node([40]))
+        >>> Node([3, 5]).splitNode()
+        (5, Node([3]), Node([]))
         """
         milieu = len(self.keys) //2
         parent = self.keys[milieu]
         g = Node(self.keys[:milieu], self.childs[:milieu+1])
         d = Node(self.keys[milieu+1:], self.childs[milieu+1:])
         
-        return (milieu,g,d)
+        return (parent, g, d)
+    
+    
+    
+    def __repr__(self) :
+        return f"Node({self.keys})"
             
 
 
@@ -102,4 +128,4 @@ class Node() :
         
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=True)
+    doctest.testmod(verbose=False)

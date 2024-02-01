@@ -9,6 +9,15 @@ class Btree() :
         self.k = k
         
     def search(self, value):
+        """
+        Exemple(s):
+        >>> Btree(2, Node([5,25])).search(25)
+        (Node([5, 25]), 1)
+        >>> Btree(2, Node([12, 42], [Node([1]), Node([25]), Node([50])])).search(1)
+        (Node([1]), 0)
+        True
+        >>> Btree(2, Node([12, 42], [Node([1]), Node([25]), Node([50])])).search(2)
+        """
         return self.root.search(value)
 
 # incomplet
@@ -29,15 +38,13 @@ class Btree() :
 #                 self.root.insert_not_full(value)
 #
 
-    def insertion(self,value):
-        """
-        >>> Node([5,25]).insertion(10)
-        Node([5,10,25])
-        >>> Node([]).insertion(1)
-        Node([1])
-        >>> Node([5,25]).insertion(50)
-        Node([5,25,50])
-        """
+    #def insertion(self,value):
+#         >>> Node([5,25]).insertion(10)
+#         Node([5,10,25])
+#         >>> Node([]).insertion(1)
+#         Node([1])
+#         >>> Node([5,25]).insertion(50)
+#         Node([5,25,50])
         
         
         
