@@ -15,38 +15,14 @@ class Btree() :
         (Node([5, 25]), 1)
         >>> Btree(2, Node([12, 42], [Node([1]), Node([25]), Node([50])])).search(1)
         (Node([1]), 0)
-        True
         >>> Btree(2, Node([12, 42], [Node([1]), Node([25]), Node([50])])).search(2)
         """
         return self.root.search(value)
 
-# incomplet
-#     def insertion(self, value):
-#         
-#         if (self.root == None):
-#             self.root = Bnode.Node(self.k)
-#             self.root.keys[0] = value
-#         else :
-#             if ( len(self.root) ==  self.k):
-#                 new_root = Bnode.Node(self.k)
-#                 new_root.childs[0] = self.root
-#                 
-#                 if (self) :
-#                     ##TODO
-#                     return None
-#             else:
-#                 self.root.insert_not_full(value)
-#
-
-    #def insertion(self,value):
-#         >>> Node([5,25]).insertion(10)
-#         Node([5,10,25])
-#         >>> Node([]).insertion(1)
-#         Node([1])
-#         >>> Node([5,25]).insertion(50)
-#         Node([5,25,50])
-        
-        
+    def insertion(self, value):
+        fini, milieu, g, d = self.root.insert(value)
+        if (not fini):
+            self.root = Node([milieu], [g, d])
         
             
         
@@ -70,4 +46,4 @@ class Btree() :
                 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=True)
+    doctest.testmod(verbose=False)

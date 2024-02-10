@@ -39,47 +39,37 @@ class Node() :
         else :
             return self.childs[index].search(value)
     
-    def insert(self, value, k):
+    def insert(self, value):
         """
-        >>> Node([5,15]).insert(12, 3)
-        Node([5,12,15])
-        >>> Node([5,15]).insert(20, 4)
-        Node([5,15,20])
+        >>> Node([5,15]).insert(12)
+        (True, None, None, None)
+        >>> Node([5]).insert(20)
+        (True, None, None, None)
+        >>> Node([12, 42], [Node([3,2])]).insert(1)
+        (True, None, None, None)
         """
-        (node, index) = self.search(value)
-        if (node == None) :
+        (found, index) = recherche_dichotomique(value, self.keys)
+        if (not found) :
             if (self.isLeaf()):
                 self.keys.insert(index, value)
+                if ( len(self.keys) > self.k):
+                    milieu, g, d = self.splitNode()
+                    return False, milieu, g, d
+                return True, None, None, None
             else:
-                (fini, milieu, g, d) = self.childs[index].insert(value, k)
+                (fini, milieu, g, d) = self.childs[index].insert(value)
                 if (not fini) :
                     self.keys.insert(index, milieu)
                     self.childs[index] = g
                     self.childs.insert(index+1, d)
-            
-                    
-            
-                    
-            
-            
-#         else :
-#             (fini, milieu, g, d) = self.childs[index].insert(value, k)
-#             if not fini:
-#                 return None
-#             #TODO
-#         if (len(self.keys) > k) :
-#             (m, g, d) = self.splitNode()
-#             f = False
-#         else:
-#             return None
-            #TODO
-            
-
-
-#     def splitNode(self) :
-#         parent = Node(self.k)
-#         m = self.keys[(len(self.node.keys))//2]
-
+                    if ( len(self.keys) > self.k) :
+                        milieu, g, d = self.splitNode()
+                        return False, milieu, g, d
+                else :
+                    return True, None, None, None
+        else :
+            return True, None, None, None
+        
     def splitNode(self) :
         """
         >>> Node([10,20,25]).splitNode()
@@ -90,41 +80,14 @@ class Node() :
         (5, Node([3]), Node([]))
         """
         milieu = len(self.keys) //2
-        parent = self.keys[milieu]
         g = Node(self.keys[:milieu], self.childs[:milieu+1])
         d = Node(self.keys[milieu+1:], self.childs[milieu+1:])
         
-        return (parent, g, d)
-    
+        return (self.keys[milieu], g, d)
     
     
     def __repr__(self) :
         return f"Node({self.keys})"
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-            
-        
-    #def getSizeNode() :
-    #def getPos() :
-    #def setNewChild() :
-    #def removeChild() :    
-    
-    #def isLeaf() :
         
 if __name__ == '__main__':
     import doctest
