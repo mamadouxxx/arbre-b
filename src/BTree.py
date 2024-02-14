@@ -20,9 +20,16 @@ class Btree() :
         return self.root.search(value)
 
     def insertion(self, value):
+        """
+        Exemple(s):
+        >>> Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])])).insertion(1)
+        True
+        """
         fini, milieu, g, d = self.root.insert(value)
         if (not fini):
-            self.root = Node([milieu], [g, d])
+            new_root = Node([milieu], [g, d])
+            self.root = new_root
+        return self.root.childs[1].childs
         
             
         

@@ -17,7 +17,7 @@ class Node() :
         return (len(self.childs) == 0)
                     
     def getSize(self) :
-        return len(Keys)
+        return len(self.keys)
     
     def search(self, value):
         """
@@ -42,10 +42,10 @@ class Node() :
     def insert(self, value):
         """
         >>> Node([5,15]).insert(12)
-        (True, None, None, None)
+        (False, 12, Node([5]), Node([15]))
         >>> Node([5]).insert(20)
         (True, None, None, None)
-        >>> Node([12, 42], [Node([3,2])]).insert(1)
+        >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).insert(1)
         (True, None, None, None)
         """
         (found, index) = recherche_dichotomique(value, self.keys)
