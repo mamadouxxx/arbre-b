@@ -24,12 +24,16 @@ class Btree() :
         Exemple(s):
         >>> Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])])).insertion(1)
         True
+        >>> Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([100])])).insertion(10)
+        True
+        >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
+        True
         """
         fini, milieu, g, d = self.root.insert(value)
         if (not fini):
             new_root = Node([milieu], [g, d])
             self.root = new_root
-        return self.root.childs[1].childs
+        return True
         
             
         
