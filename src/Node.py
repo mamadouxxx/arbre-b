@@ -77,6 +77,19 @@ class Node() :
                     return True, None, None, None
         else :
             return True, None, None, None
+    
+    def suppr(self,value) :
+        """
+        >>> a = Node([12, 42], [Node([3]), Node([25]), Node([50])])
+        >>> a.suppr(11)
+        False
+        """
+        found = self.search(value)
+        if (found) :
+            return None
+        else :
+            return False
+        
         
     def splitNode(self) :
         """
