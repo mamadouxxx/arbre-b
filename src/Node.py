@@ -8,12 +8,12 @@ class Node() :
         self.k = k
         
     def isLeaf(self):
-        """
-        >>> Node([12, 42]).isLeaf()
-        True
-        >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).isLeaf()
-        False
-        """
+#         """
+#         >>> Node([12, 42]).isLeaf()
+#         True
+#         >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).isLeaf()
+#         False
+#         """
         return (len(self.childs) == 0)
                     
     def getSize(self) :
@@ -41,12 +41,17 @@ class Node() :
     
     def insert(self, value):
         """
-        >>> Node([5,15]).insert(12)
-        (False, 12, Node([5]), Node([15]))
+        Exemple(s):
         >>> Node([5]).insert(20)
         (True, None, None, None)
-        >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).insert(1)
+        >>> Node([5,15]).insert(12)
+        (False, 12, Node([5]), Node([15]))
+        >>> Node([12, 42], [Node([3]), Node([25]), Node([50])]).insert(52)
         (True, None, None, None)
+        >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).insert(1)
+        (False, 12, Node([2]), Node([42]))
+        >>> Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])]).insert(6)
+        (False, 12, Node([4]), Node([42]))
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (not found) :

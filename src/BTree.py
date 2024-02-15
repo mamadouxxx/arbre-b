@@ -1,5 +1,5 @@
 #import Node as Bnode
-from node import *
+from Node import *
 
 
 class Btree() :
