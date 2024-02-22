@@ -38,6 +38,32 @@ class Node() :
             return None
         else :
             return self.childs[index].search(value)
+        
+        
+    def is_ArbreB(self, is_root = False):
+        ok = (is_root or (self.k//2) <= len(self.keys)) and len(self.keys) <= self.k
+        ok = ok and all(self.keys[i] < self.keys[i+1] for i in range(len(self.keys) - 1))
+        if (self.isLeaf()):
+            height = 0
+            mini, maxi = self.keys[0], self.keys[-1]
+        else:
+            results = [child.is_ArbreB( False ) for child in self.childs]
+            mins = [mini for (_, _, mini, _) in results]
+            mqxs = [mqxi for (_, _, _, mqxi) in results]
+            ok = ok and all(cle[i] > maxs[i] and cel[i] < mins[i+1] for i in range(len(cles) - 1))
+            print(results)
+            for r in range(0, len(results)-1):
+                (ok, h, mini, maxi) = results[i]
+                if (ok == False):
+                    return False
+                (ok_tmp, h_tmp, maxi_tmp, mini_tmp) = results[i+1]
+                if (h != h_tmp):
+                    return False
+                if (m
+                
+
+        return (ok, height, mini, maxi)
+        
     
     def insert(self, value):
         """

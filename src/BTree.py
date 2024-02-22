@@ -53,6 +53,8 @@ class Btree() :
         """
         return self.root.linearisation()
             
+    def isBalance():
+        (truc, _, _, _) = self.root.is_ArbreB(True)
             
     def __repr__(self) :
         return f"Btree({self.root})"
