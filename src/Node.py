@@ -8,12 +8,12 @@ class Node() :
         self.k = k
         
     def isLeaf(self):
-#         """
-#         >>> Node([12, 42]).isLeaf()
-#         True
-#         >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).isLeaf()
-#         False
-#         """
+        """
+        >>> Node([12, 42]).isLeaf()
+        True
+        >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).isLeaf()
+        False
+        """
         return (len(self.childs) == 0)
                     
     def getSize(self) :
@@ -42,19 +42,33 @@ class Node() :
     def insert(self, value):
         """
         Exemple(s):
-        >>> Node([5]).insert(20)
+        >>> node = Node([5])
+        >>> node.insert(20)
         (True, None, None, None)
+        >>> node.search(20)
+        (Node([5, 20]), 1)
         >>> Node([5,15]).insert(12)
         (False, 12, Node([5]), Node([15]))
-        >>> a = Node([12, 42], [Node([3]), Node([25]), Node([50])])
-        >>> a.insert(52)
+        >>> node.search(12)
+        
+        >>> node = Node([12, 42], [Node([3]), Node([25]), Node([50])])
+        >>> node.insert(52)
         (True, None, None, None)
-        >>> a.search(52)
+        >>> node.search(52)
         (Node([50, 52]), 1)
-        >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).insert(1)
+        >>> node = Node([12, 42], [Node([2, 3]), Node([25]), Node([50])])
+        >>> node.insert(1)
         (False, 12, Node([2]), Node([42]))
-        >>> Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])]).insert(6)
+        >>> node.search(1)
+        (Node([1]), 0)
+        >>> node = Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])])
+        >>> node.insert(6)
         (False, 12, Node([4]), Node([42]))
+        
+        >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])], 3)
+        >>> node.insert(1)
+        (True, None, None, None)
+        
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (not found) :
@@ -73,6 +87,8 @@ class Node() :
                     if ( len(self.keys) > self.k) :
                         milieu, g, d = self.splitNode()
                         return False, milieu, g, d
+                    else:
+                        return True, None, None, None
                 else :
                     return True, None, None, None
         else :
@@ -106,10 +122,27 @@ class Node() :
         
         return (self.keys[milieu], g, d)
     
+    def linearisation(self):
+        """
+        Exemple(s):
+        >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).linearisation()
+        [2, 3, 12, 25, 42, 50]
+        """
+        if (self.isLeaf()):
+            res = self.keys
+        else:
+            res = []
+            for i in range(0, len(self.keys)):
+                res.extend(self.childs[i].linearisation())
+                res.append(self.keys[i])
+            res.extend(self.childs[len(self.childs)-1].linearisation())
+        return res
+        
+    
     
     def __repr__(self) :
         return f"Node({self.keys})"
-        
+              
 if __name__ == '__main__':
     import doctest
     doctest.testmod(verbose=False)

@@ -41,26 +41,28 @@ class Btree() :
             new_root = Node([milieu], [g, d])
             self.root = new_root
         return True
-        
-            
-        
-        
-                
-            
     
-    #def search() :
-    #def insertion():
-    #def createNode() :
-    #def delete() :
-    #def linear() :
-    #def createTree() :
-    #def height() :
-    #def isArbre() :
-    #def getNbKeys () :
-    #def getSize () :
-    #def changeRoot() :
-    #def isEqual() :
-    
+    def linearisation(self, node):
+        """
+        Exemple(s):
+        >>> a = Btree(2)
+        >>> node = Node([6], [Node([1]), Node([7])])
+        >>> a.linearisation(node)
+        ()
+        """
+        if (node):
+            if (node.isLeaf()):
+                for i in node.keys:
+                    print(i)
+            else:
+                if (len(node.keys) == 1):
+                    self.linearisation(node.childs[0])
+                    print(node.keys[0])
+                    self.linearisation(node.childs[1])
+                else:
+                    for 
+            
+            
     def __repr__(self) :
         return f"Btree({self.root})"
                 
