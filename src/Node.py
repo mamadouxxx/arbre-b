@@ -125,6 +125,8 @@ class Node() :
     def linearisation(self):
         """
         Exemple(s):
+        >>> Node([12, 42], [Node([2, 3]), Node([13, 15]), Node([45])]).linearisation()
+        [2, 3, 12, 13, 15, 42, 45]
         >>> Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]).linearisation()
         [2, 3, 12, 25, 42, 50]
         """

@@ -1,5 +1,6 @@
 #import Node as Bnode
 from Node import *
+from Visualization import *
 
 
 class Btree() :
@@ -42,25 +43,15 @@ class Btree() :
             self.root = new_root
         return True
     
-    def linearisation(self, node):
+    
+    def linearisation(self):
         """
         Exemple(s):
-        >>> a = Btree(2)
-        >>> node = Node([6], [Node([1]), Node([7])])
-        >>> a.linearisation(node)
-        ()
+        >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
+        >>> a.linearisation()
+        [2, 3, 12, 25, 42, 50]
         """
-        if (node):
-            if (node.isLeaf()):
-                for i in node.keys:
-                    print(i)
-            else:
-                if (len(node.keys) == 1):
-                    self.linearisation(node.childs[0])
-                    print(node.keys[0])
-                    self.linearisation(node.childs[1])
-                else:
-                    for 
+        return self.root.linearisation()
             
             
     def __repr__(self) :
