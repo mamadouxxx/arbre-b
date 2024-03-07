@@ -32,12 +32,12 @@ class Btree() :
         >>> b.insertion(10)
         True
         >>> b.search(10)
-        (Node([10, 12]), 0)
+        (Node([1, 10, 11]), 1)
         >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
         True
         
         """
-        fini, milieu, g, d = self.root.insert(value)
+        fini, milieu, g, d = self.root.insert(value, self.k)
         if (not fini):
             new_root = Node([milieu], [g, d])
             self.root = new_root
@@ -53,8 +53,15 @@ class Btree() :
         """
         return self.root.linearisation()
             
-    def isBalance():
-        (truc, _, _, _) = self.root.is_ArbreB(True)
+    def isBalance(self):
+        """
+        Exemple(s) :
+        >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([30]), Node([100])]))
+        >>> b.isBalance()
+        True
+        """
+        (ok, _, _, _) = self.root.is_ArbreB(self.k, True)
+        return ok
             
     def __repr__(self) :
         return f"Btree({self.root})"

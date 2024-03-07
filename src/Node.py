@@ -1,11 +1,11 @@
 from util import recherche_dichotomique
+from Visualization import *
 
 class Node() :
     
-    def __init__(self, keys, childs = [], k = 2) :
+    def __init__(self, keys, childs = []) :
         self.keys = keys
         self.childs = childs
-        self.k = k
         
     def isLeaf(self):
         """
@@ -40,59 +40,69 @@ class Node() :
             return self.childs[index].search(value)
         
         
-    def is_ArbreB(self, is_root = False):
-        ok = (is_root or (self.k//2) <= len(self.keys)) and len(self.keys) <= self.k
+    def is_ArbreB(self, k, is_root = False):
+        """
+        Exemple(s) :
+        >>> Node([5]).is_ArbreB(2)
+        (True, 0, 5, 5)
+        >>> Node([5,25]).is_ArbreB(2)
+        (True, 0, 5, 25)
+        >>> node = Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])])
+        >>> node.is_ArbreB(2)
+        (False, 2, 0, 50)
+        >>> Node([5,25,3]).is_ArbreB(2)
+        (False, 0, 5, 3)
+        >>> Node([5, 25], [Node([0, 1, 2]), Node([3, 2, 5])]).is_ArbreB(2)
+        (False, 1, 0, 5)
+        >>> Node([5], [Node([0]), Node([7], [Node([6]), Node([8])])]).is_ArbreB(2)
+        (False, 2, 0, 8)
+        """
+        ok = (is_root or (k//2) <= len(self.keys)) and len(self.keys) <= k
         ok = ok and all(self.keys[i] < self.keys[i+1] for i in range(len(self.keys) - 1))
         if (self.isLeaf()):
             height = 0
             mini, maxi = self.keys[0], self.keys[-1]
         else:
-            results = [child.is_ArbreB( False ) for child in self.childs]
+            results = [child.is_ArbreB( k, False ) for child in self.childs]
             mins = [mini for (_, _, mini, _) in results]
-            mqxs = [mqxi for (_, _, _, mqxi) in results]
-            ok = ok and all(cle[i] > maxs[i] and cel[i] < mins[i+1] for i in range(len(cles) - 1))
-            print(results)
-            for r in range(0, len(results)-1):
-                (ok, h, mini, maxi) = results[i]
-                if (ok == False):
-                    return False
-                (ok_tmp, h_tmp, maxi_tmp, mini_tmp) = results[i+1]
-                if (h != h_tmp):
-                    return False
-                if (m
-                
-
+            maxs = [maxi for (_, _, _, maxi) in results]
+            ok = ok and all(self.keys[i] > maxs[i] and self.keys[i] < mins[i+1] for i in range(len(self.keys) - 1))
+            heights = [h for (_, h, _, _) in results]
+            ok = ok and all(heights[i] == heights[i+1] for i in range(len(heights)-1))
+            height = 1 + max(heights)
+            mini = min(mins)
+            maxi = max(maxs)
         return (ok, height, mini, maxi)
         
     
-    def insert(self, value):
+    def insert(self, value, k):
         """
         Exemple(s):
         >>> node = Node([5])
-        >>> node.insert(20)
+        >>> node.insert(20, 2)
         (True, None, None, None)
         >>> node.search(20)
         (Node([5, 20]), 1)
-        >>> Node([5,15]).insert(12)
+        >>> Node([5,15]).insert(12, 2)
         (False, 12, Node([5]), Node([15]))
         >>> node.search(12)
         
         >>> node = Node([12, 42], [Node([3]), Node([25]), Node([50])])
-        >>> node.insert(52)
+        >>> node.insert(52, 2)
         (True, None, None, None)
         >>> node.search(52)
         (Node([50, 52]), 1)
         >>> node = Node([12, 42], [Node([2, 3]), Node([25]), Node([50])])
-        >>> node.insert(1)
+        >>> node.insert(1, 2)
         (False, 12, Node([2]), Node([42]))
         >>> node.search(1)
         (Node([1]), 0)
         >>> node = Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])])
-        >>> node.insert(6)
+        >>> node.insert(6, 2)
         (False, 12, Node([4]), Node([42]))
         
-        >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])], 3)
-        >>> node.insert(1)
+        >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])])
+        >>> node.insert(1, 3)
         (True, None, None, None)
         
         """
@@ -100,17 +110,17 @@ class Node() :
         if (not found) :
             if (self.isLeaf()):
                 self.keys.insert(index, value)
-                if ( len(self.keys) > self.k):
+                if ( len(self.keys) > k):
                     milieu, g, d = self.splitNode()
                     return False, milieu, g, d
                 return True, None, None, None
             else:
-                (fini, milieu, g, d) = self.childs[index].insert(value)
+                (fini, milieu, g, d) = self.childs[index].insert(value, k)
                 if (not fini) :
                     self.keys.insert(index, milieu)
                     self.childs[index] = g
                     self.childs.insert(index+1, d)
-                    if ( len(self.keys) > self.k) :
+                    if ( len(self.keys) > k) :
                         milieu, g, d = self.splitNode()
                         return False, milieu, g, d
                     else:
@@ -119,18 +129,35 @@ class Node() :
                     return True, None, None, None
         else :
             return True, None, None, None
+        
+    def suppression(self, value, k, is_root=False) :
+        (node, index) = self.search(value)
+        if (node.isLeaf()) :
+            removed = node.keys.pop(index)
+            if ( not is_root):
+                if (k//2 <= len(node.keys) <= k):
+                    return True, None
+                else:
+                    return False, removed
+            else
+                return True, None
+        else:
+            (ok, removed) = self.supression(value, k)
+            if (not ok):
+                
+            
     
-    def suppr(self,value) :
-        """
-        >>> a = Node([12, 42], [Node([3]), Node([25]), Node([50])])
-        >>> a.suppr(11)
-        False
-        """
-        found = self.search(value)
-        if (found) :
-            return None
-        else :
-            return False
+#     def suppr(self, value, k) :
+#         """
+#         >>> a = Node([12, 42], [Node([3]), Node([25]), Node([50])])
+#         >>> a.suppr(11)
+#         False
+#         """
+#         found = self.search(value)
+#         if (found) :
+#             return None
+#         else :
+#             return False
         
         
     def splitNode(self) :
