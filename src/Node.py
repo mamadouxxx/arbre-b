@@ -1,5 +1,6 @@
 from util import recherche_dichotomique
 from Visualization import *
+from BTree import *
 
 class Node() :
     
@@ -77,6 +78,7 @@ class Node() :
     
     def insert(self, value, k):
         """
+        Return : (node, index) or Nothing
         Exemple(s):
         >>> node = Node([5])
         >>> node.insert(20, 2)
@@ -131,21 +133,34 @@ class Node() :
             return True, None, None, None
         
     def suppression(self, value, k, is_root=False) :
-        (node, index) = self.search(value)
-        if (node.isLeaf()) :
-            removed = node.keys.pop(index)
-            if ( not is_root):
-                if (k//2 <= len(node.keys) <= k):
-                    return True, None
-                else:
-                    return False, removed
-            else
-                return True, None
+        """
+        Exemple(s):
+        >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
+        >>> node.suppression(50, 2)
+        
+        
+        """
+        (found, index) = recherche_dichotomique(value, self.keys)
+        if (self.isLeaf()) :
+            removed = self.keys.pop(index)
+            ok = is_root or k//2 <= len(self.keys)
         else:
-            (ok, removed) = self.supression(value, k)
+            (ok) = self.childs[index].suppression(value, k, False)
             if (not ok):
+                if(index - 1 >= 0 and (len(self.childs[index-1].keys) >= k//2)):
+                    borrowed = self.childs[index-1].keys.pop()
+                    replaced = self.keys.pop(0)
+                    self.keys.insert(0, borrowed)
+                    self.childs[index].keys.insert(0, replaced)
+                elif(index + 1 < len(self.childs) and (len(self.childs[index+1].keys) >= k//2)):
+                    borrowed = self.childs[index+1].keys.pop(0)
+                    replaced = self.keys.pop()
+                    self.keys.insert(len(self.keys), borrowed)
+                    self.childs[index].keys.insert(len(self.childs), replaced)
+        
+        
+        return ok
                 
-            
     
 #     def suppr(self, value, k) :
 #         """
@@ -196,7 +211,9 @@ class Node() :
     
     
     def __repr__(self) :
-        return f"Node({self.keys})"
+        return (f"Node({self.keys}"
+                + (f", {self.childs})" if len(self.childs) > 0 else ")"))
+
               
 if __name__ == '__main__':
     import doctest
