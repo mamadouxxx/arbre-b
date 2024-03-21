@@ -1,0 +1,10 @@
+
+dpython:S2208"GImport only needed names or import the module and then use its members.(ùÏ—Ñÿÿÿÿÿ
+^python:S2208"GImport only needed names or import the module and then use its members.(ÔÅ{
+zpython:S5717"]Change this default value to "None" and initialize this parameter inside the function/method.(Ò–²·øÿÿÿÿ
+apython:S100"JRename method "isLeaf" to match the regular expression ^[a-z_][a-z0-9_]*$.(Êú³Š
+gpython:S100"KRename method "getSize" to match the regular expression ^[a-z_][a-z0-9_]*$.(‡Åîâùÿÿÿÿ
+dpython:S100,"MRename method "is_ArbreB" to match the regular expression ^[a-z_][a-z0-9_]*$.(×¡òõ
+kpython:S3776O"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(™ÿˆ*
+Ipython:S1481‘"+Remove the unused local variable "removed".(Ï©ÿûøÿÿÿÿ
+jpython:S100²"MRename method "splitNode" to match the regular expression ^[a-z_][a-z0-9_]*$.(æĞ°†øÿÿÿÿ
