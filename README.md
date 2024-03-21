@@ -68,4 +68,4 @@ Suite suppression, fonctionne pour le cas d'une feuille.
 
 ### emaine 12
 
-Création du Readme, suite suppression.
+Suite suppression.

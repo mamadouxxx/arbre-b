@@ -20,6 +20,6 @@ class Visualization() :
             self.add_node_to_graph(childKeys)
             
     def render(self):
-        self.g.format = 'svg'
+        self.g.format = 'jpg'
         self.g.render(directory='ArbreB', view=True)
             
