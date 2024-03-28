@@ -1,6 +1,7 @@
 import unittest
+from Node import *
 
-class NodeTest:
+class experimentation:
     def setUp(self):
         self.node = Node([12, 42], )
 

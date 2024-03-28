@@ -137,8 +137,20 @@ class Node() :
         Exemple(s):
         >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
         >>> node.suppression(50, 2)
-        
-        
+        True
+        >>> node.search(50)
+        >>> node.suppression(26, 2)
+        True
+        >>> node.search(26)
+        >>> node.suppression(25, 2)
+        True
+        >>> node.search(25)
+        >>> node.suppression(12, 2)
+        True
+        >>> node.suppression(3, 2)
+        True
+        >>> node
+        Node([42], [Node([4]), Node([58])])
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
