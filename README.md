@@ -5,6 +5,10 @@
 Mamadou Lamarana Bah
 Loïc Scoth
 
+## TODO
+
+ajout commande execution/tests
+
 ## Description du projet
 
 Le projet consiste à la création et à la représentation d'un arbre binaire, constitué de noeud et de feuilles, que nous créons.  
@@ -66,6 +70,10 @@ suite suppression, création de méthode complémentaire (isArbreB) et rectifica
 
 Suite suppression, fonctionne pour le cas d'une feuille.
 
-### emaine 12
+### semaine 12
 
 Suite suppression.
+
+### semaine 13
+
+suite suppression

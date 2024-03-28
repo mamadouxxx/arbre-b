@@ -147,10 +147,10 @@ class Node() :
         >>> node.search(25)
         >>> node.suppression(12, 2)
         True
-        >>> node
         >>> node.suppression(3, 2)
         True
         >>> node
+        Node([42], [Node([4]), Node([58])])
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
