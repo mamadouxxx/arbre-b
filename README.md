@@ -8,6 +8,7 @@ Loïc Scoth
 ## TODO
 
 ajout commande execution/tests
+Ce qui ne vas pas
 
 ## Description du projet
 

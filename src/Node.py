@@ -1,6 +1,6 @@
 from util import recherche_dichotomique
-from Visualization import *
-from BTree import *
+#from Visualization import *
+#from BTree import *
 
 class Node() :
     
@@ -80,7 +80,10 @@ class Node() :
         """
         Return : (node, index) or Nothing
         Exemple(s):
-        >>> node = Node([5])
+        
+        >>> node = Node([])
+        >>> node.insert(5,1)
+        (True, None, None, None)
         >>> node.insert(20, 2)
         (True, None, None, None)
         >>> node.search(20)
@@ -106,6 +109,7 @@ class Node() :
         >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])])
         >>> node.insert(1, 3)
         (True, None, None, None)
+        
         
         """
         (found, index) = recherche_dichotomique(value, self.keys)

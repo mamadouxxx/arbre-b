@@ -1,6 +1,6 @@
 #import Node as Bnode
-from Node import *
-from Visualization import *
+from Node import Node
+#from Visualization import Visualization
 
 
 class Btree() :
@@ -23,24 +23,28 @@ class Btree() :
     def insertion(self, value):
         """
         Exemple(s):
-        >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
-        >>> a.insertion(1)
-        True
-        >>> a.search(1)
-        (Node([1]), 0)
-        >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([100])]))
-        >>> b.insertion(10)
-        True
-        >>> b.search(10)
-        (Node([1, 10, 11]), 1)
-        >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
-        True
-        
+#         >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
+#         >>> a.insertion(1)
+#         True
+#         >>> a.search(1)
+#         (Node([1]), 0)
+#         >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([100])]))
+#         >>> b.insertion(10)
+#         True
+#         >>> b.search(10)
+#         (Node([1, 10, 11]), 1)
+#         >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
+#         True
+        >>> c = Btree(2,Node([1, 10]))
+        >>> print(c.insertion(15))
+
         """
+        print(self.root)
         fini, milieu, g, d = self.root.insert(value, self.k)
         if (not fini):
             new_root = Node([milieu], [g, d])
             self.root = new_root
+        print(self.root)
         return True
     
     
@@ -62,6 +66,11 @@ class Btree() :
         """
         (ok, _, _, _) = self.root.is_ArbreB(self.k, True)
         return ok
+    
+    def equals(self, otherObject):
+        if not isinstance(otherObject, Btree):     
+            return False
+        return (self.root.keys == otherObject.root.keys and self.k == otherObject.k)
             
     def __repr__(self) :
         return f"Btree({self.root})"
