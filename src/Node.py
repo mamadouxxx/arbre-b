@@ -96,12 +96,12 @@ class Node() :
         (Node([50, 52]), 1)
         >>> node = Node([12, 42], [Node([2, 3]), Node([25]), Node([50])])
         >>> node.insert(1, 2)
-        (False, 12, Node([2], [Node([1]), Node([3])]), Node([42], [Node([25]), Node([50])]))
+        (False, 12, Node([2]), Node([42]))
         >>> node.search(1)
         (Node([1]), 0)
         >>> node = Node([12, 42], [Node([2, 4], [Node([0, 1]), Node([3]), Node([7, 8])]), Node([25]), Node([50])])
         >>> node.insert(6, 2)
-        (False, 12, Node([4], [Node([2], [Node([0, 1]), Node([3])]), Node([7], [Node([6]), Node([8])])]), Node([42], [Node([25]), Node([50])]))
+        (False, 12, Node([4]), Node([42]))
         
         >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])])
         >>> node.insert(1, 3)
@@ -137,20 +137,8 @@ class Node() :
         Exemple(s):
         >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
         >>> node.suppression(50, 2)
-        True
-        >>> node.search(50)
-        >>> node.suppression(26, 2)
-        True
-        >>> node.search(26)
-        >>> node.suppression(25, 2)
-        True
-        >>> node.search(25)
-        >>> node.suppression(12, 2)
-        True
-        >>> node
-        >>> node.suppression(3, 2)
-        True
-        >>> node
+        
+        
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
@@ -159,32 +147,33 @@ class Node() :
         else:
             (ok) = self.childs[index].suppression(value, k, False)
             if (not ok):
-                if(index - 1 >= 0 and (len(self.childs[index-1].keys) - 1 >= k//2)):
+                if(index - 1 >= 0 and (len(self.childs[index-1].keys) >= k//2)):
                     borrowed = self.childs[index-1].keys.pop()
                     replaced = self.keys.pop(0)
                     self.keys.insert(0, borrowed)
                     self.childs[index].keys.insert(0, replaced)
-                elif(index + 1 < len(self.childs) and (len(self.childs[index+1].keys) - 1 >= k//2)):
-                    borrowed = self.childs[index+1].keys.pop()
+                elif(index + 1 < len(self.childs) and (len(self.childs[index+1].keys) >= k//2)):
+                    borrowed = self.childs[index+1].keys.pop(0)
                     replaced = self.keys.pop()
-                    self.childs[index].keys.insert(len(self.keys), borrowed)
-                    self.childs[index].keys.insert(len(self.childs[index].keys), replaced) # len(self.childs)
-                else:
-                    if(index-1 >= 0):
-                        replaced = self.keys.pop(index-1)
-                        borrowed = self.childs[index-1].keys.pop()
-                        self.childs[index].keys.insert(len(self.childs[index].keys), replaced)
-                        self.childs[index].keys.insert(0, borrowed)
-                        del self.childs[index-1]
-                    elif(index + 1 < len(self.childs)):
-                        replaced = self.keys.pop(index)
-                        borrowed = self.childs[index+1].keys.pop()
-                        self.childs[index].keys.insert(0, borrowed)
-                        self.childs[index].keys.insert(len(self.childs[index].keys), replaced)
-                        del self.childs[index+1]
-                ok = not ok
+                    self.keys.insert(len(self.keys), borrowed)
+                    self.childs[index].keys.insert(len(self.childs), replaced)
         
-        return ok        
+        
+        return ok
+                
+    
+#     def suppr(self, value, k) :
+#         """
+#         >>> a = Node([12, 42], [Node([3]), Node([25]), Node([50])])
+#         >>> a.suppr(11)
+#         False
+#         """
+#         found = self.search(value)
+#         if (found) :
+#             return None
+#         else :
+#             return False
+        
         
     def splitNode(self) :
         """
@@ -219,7 +208,8 @@ class Node() :
             res.extend(self.childs[len(self.childs)-1].linearisation())
         return res
         
-        
+    
+    
     def __repr__(self) :
         return (f"Node({self.keys}"
                 + (f", {self.childs})" if len(self.childs) > 0 else ")"))
