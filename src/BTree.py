@@ -1,6 +1,4 @@
-#import Node as Bnode
 from Node import Node
-#from Visualization import Visualization
 
 
 class Btree() :
@@ -36,20 +34,20 @@ class Btree() :
 #         >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
 #         True
         >>> c = Btree(2,Node([1, 10]))
-        >>> print(c.insertion(15))
+        >>> c.insertion(15)
+        True
 
         """
-        print(self.root)
         fini, milieu, g, d = self.root.insert(value, self.k)
         if (not fini):
             new_root = Node([milieu], [g, d])
             self.root = new_root
-        print(self.root)
         return True
     
     
     def linearisation(self):
         """
+        
         Exemple(s):
         >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
         >>> a.linearisation()
@@ -59,20 +57,36 @@ class Btree() :
             
     def isBalance(self):
         """
+        Verification de l'équilibrage de l'arbre
+        • Toutes les feuilles ont la même profondeur, à savoir la hauteur h de l’arbre.
+        • k/2 ≤ n ≤ k. Taux de remplissage min = 50%, et moyen 75%.
+          n = nombre de clés contenus dans le nœud x
+        • Si x n’est pas une feuille :
+            • pour 2<=i<=n, pour toute clef x du filsi : clesi <= x <=clesi+1
+            • Pour toute clef x du fils1 : x <= cles1
+        • Si x n’est pas la racine, n est compris entre k/2 et k.
+        
+        Return :
+            bool : true si l'arbre est bien équilibré et false sinon.
+        
         Exemple(s) :
-        >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([30]), Node([100])]))
+        >>> b = Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([30]), Node([100])]))
         >>> b.isBalance()
+        True
+        >>> Btree(3, Node([12,25,50,62], [Node([1,11]), Node([20]), Node([30]), Node([100])])).isBalance()
+        False
+        >>> Btree(3, Node([12,25,50], [Node([15]), Node([30]), Node([100])])).isBalance()
+        False
+        >>> Btree(3, Node([12,25,50])).isBalance()
         True
         """
         (ok, _, _, _) = self.root.is_ArbreB(self.k, True)
         return ok
-    
-    def equals(self, otherObject):
-        if not isinstance(otherObject, Btree):     
-            return False
-        return (self.root.keys == otherObject.root.keys and self.k == otherObject.k)
-            
+                
     def __repr__(self) :
+        """
+        representataion d'un btree
+        """
         return f"Btree({self.root})"
                 
 if __name__ == '__main__':

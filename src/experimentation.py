@@ -20,7 +20,7 @@ class experimentation:
         for n in [2, 4, 5] + list(range(6, 37, 2)) + [7, 9, 11, 13]:
             self.btree.insertion(n)
             
-        # TODO Visualization(self.btree).render()
+        #Visualization(self.btree).render()
             
         
         print(self.btree)

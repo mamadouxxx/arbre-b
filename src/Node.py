@@ -43,6 +43,12 @@ class Node() :
         
     def is_ArbreB(self, k, is_root = False):
         """
+        Verification de l'équilibrage de l'arbre
+        Params :
+            k => number of keys in node
+        Return :
+            (ok, height, mini, maxi)
+        
         Exemple(s) :
         >>> Node([5]).is_ArbreB(2)
         (True, 0, 5, 5)
@@ -57,6 +63,8 @@ class Node() :
         (False, 1, 0, 5)
         >>> Node([5], [Node([0]), Node([7], [Node([6]), Node([8])])]).is_ArbreB(2)
         (False, 2, 0, 8)
+        >>> Node([12,25,50], [Node([1,11]), Node([20]), Node([30]), Node([100])]).is_ArbreB(3)
+        (True, 1, 1, 100)
         """
         ok = (is_root or (k//2) <= len(self.keys)) and len(self.keys) <= k
         ok = ok and all(self.keys[i] < self.keys[i+1] for i in range(len(self.keys) - 1))
