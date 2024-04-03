@@ -101,6 +101,25 @@ class Btree() :
         """
         (ok, _, _, _) = self.root.is_ArbreB(self.k, True)
         return ok
+    
+    def suppr(self, value, k):
+        """
+        Supprimer une valeur dans l'arbre
+        Params :
+            value : (int), valeur à supprimer
+            k : (int), nombre de clés
+            
+        Return :
+            #TODO
+        Exemple(s):
+        >>> arbreB = Btree(2, Node([5,25]))
+        >>> arbreB.suppr(25,2)
+        True
+        >>> arbreB
+        Btree(Node([5]))
+
+        """
+        return self.root.suppression(value, k, True)
                 
     def __repr__(self) :
         """
