@@ -59,9 +59,10 @@ class Node() :
         • k/2 ≤ n ≤ k. Taux de remplissage min = 50%, et moyen 75%.
           n = nombre de clés contenus dans le nœud x
         • Si x n’est pas une feuille :
-            • pour 2<=i<=n, pour toute clef x du filsi : clesi <= x <=clesi+1
+            • pour 2<=i<=n, pour toute clef x du fils i : cles[i] <= [x] <=cles[i+1]
             • Pour toute clef x du fils1 : x <= cles1
         • Si x n’est pas la racine, n est compris entre k/2 et k.
+        • chaque noeud a exactement 0 ou k + 1 fils.
         
         Params :
             k => number of keys in node
@@ -256,6 +257,10 @@ class Node() :
         (22, Node([12, 20]), Node([40]))
         >>> Node([3, 5]).splitNode()
         (5, Node([3]), Node([]))
+        >>> Node([3, 5], [Node([2]), Node([4]), Node([8])]).splitNode()
+        (5, Node([3], [Node([2]), Node([4])]), Node([], [Node([8])]))
+        >>> Node([3, 5, 7], [Node([1, 2]), Node([4]), Node([6]), Node([8, 9])]).splitNode()
+        (5, Node([3], [Node([1, 2]), Node([4])]), Node([7], [Node([6]), Node([8, 9])]))
         """
         milieu = len(self.keys) //2
         g = Node(self.keys[:milieu], self.childs[:milieu+1])
@@ -297,4 +302,4 @@ class Node() :
               
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=True)
+    doctest.testmod(verbose=False)
