@@ -86,9 +86,12 @@ class Node() :
         (False, 2, 0, 8)
         >>> Node([12,25,50], [Node([1,11]), Node([20]), Node([30]), Node([100])]).is_ArbreB(3)
         (True, 1, 1, 100)
+        >>> Node([12,42], [Node([2,4]), Node([13])]).is_ArbreB(2)
+        (False, 1, 2, 13)
         """
         ok = (is_root or (k//2) <= len(self.keys)) and len(self.keys) <= k
         ok = ok and all(self.keys[i] < self.keys[i+1] for i in range(len(self.keys) - 1))
+        if(len(self.childs) !=0) : ok = ok and (len(self.childs) == len(self.keys) + 1)
         if (self.isLeaf()):
             height = 0
             mini, maxi = self.keys[0], self.keys[-1]
@@ -172,13 +175,35 @@ class Node() :
         
     def suppression(self, value, k, is_root=False) :
         """
-        supprime une 
+        supprime une valeur dans un noeud (cas d'un noeud feuille)
+        
+        :Params :
+            value : (int) valeur à supprimer
+            k : nombre de clés dans un noeud
+            is_root : pour spécifier si le noeur est le root.
+            
+        :Return
+            bool : (true) si la suppression fonctionne, false sinon
         Exemple(s):
         >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
         >>> node.suppression(50, 2)
         True
         >>> node.search(50)
-        
+        >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([58])])
+        >>> node.suppression(58, 2)
+        True
+        >>> node
+        Node([12, 26], [Node([3, 4]), Node([25]), Node([42])])
+        >>> node = Node([12, 42], [Node([3]), Node([25, 26]), Node([58])])
+        >>> node.suppression(3, 2)
+        True
+        >>> node
+        Node([12, 26], [Node([42]), Node([25]), Node([58])])
+        >>> node = Node([14], [Node([6, 10], [Node([4], [Node([2]), Node([5])]), Node([8], [Node([7]), Node([9])]), Node([12], [Node([11]), Node([13])])]), Node([22, 30], [Node([18], [Node([16]), Node([20])]), Node([26], [Node([24]), Node([28])]), Node([34], [Node([32]), Node([36])])])])
+        >>> node.suppression(20, 2)
+        True
+        >>> node
+        Node([14], [Node([6, 10], [Node([4], [Node([2]), Node([5])]), Node([8], [Node([7]), Node([9])]), Node([12], [Node([11]), Node([13])])]), Node([22, 30], [Node([], [Node([16, 18])]), Node([26], [Node([24]), Node([28])]), Node([34], [Node([32]), Node([36])])])])
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
@@ -202,14 +227,14 @@ class Node() :
                 # when deletion of the key violates the property of the minimum number of keys
                 # merge
                 else:
-                    # right sibling lookup
+                    # left sibling lookup
                     if(index-1 >= 0):
                         replaced = self.keys.pop(index-1)
                         borrowed = self.childs[index-1].keys.pop()
                         self.childs[index].keys.insert(len(self.childs[index].keys), replaced)
                         self.childs[index].keys.insert(index-1, borrowed)
                         del self.childs[index-1]
-                    # left sibling lookup
+                    # rigth sibling lookup
                     elif(index + 1 < len(self.childs)):
                         replaced = self.keys.pop(index)
                         borrowed = self.childs[index+1].keys.pop()
