@@ -104,13 +104,14 @@ class Btree() :
     
     def suppr(self, value, k):
         """
+        Non fonctionnel
+        
         Supprimer une valeur dans l'arbre
         Params :
             value : (int), valeur à supprimer
             k : (int), nombre de clés
             
         Return :
-            #TODO
         Exemple(s):
         >>> arbreB = Btree(2, Node([5,25]))
         >>> arbreB.suppr(25,2)
@@ -129,4 +130,4 @@ class Btree() :
                 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=False)
+    doctest.testmod(verbose=True)

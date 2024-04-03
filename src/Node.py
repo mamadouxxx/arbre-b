@@ -20,8 +20,6 @@ class Node() :
         """
         return (len(self.childs) == 0)
                     
-    def getSize(self) :
-        return len(self.keys)
     
     def search(self, value):
         """
@@ -299,4 +297,4 @@ class Node() :
               
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=False)
+    doctest.testmod(verbose=True)

@@ -11,7 +11,6 @@ class Visualization() :
         self.add_node_to_graph(self.btree.root)
         
     def add_node_to_graph(self, node):
-#        print(repr(node.keys))
         nodeKeys = repr(node.keys)
         self.g.node(nodeKeys)
         for child in node.childs:

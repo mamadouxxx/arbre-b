@@ -33,6 +33,9 @@ def recherche_dichotomique(x, l, cmp = compare):
     Cet indice `index` indiquera soit la place de l'élément x dans la liste,
     soit la place du fils susceptible de contenir l'élément x recherché
     dans un arbre de recherche.
+    
+    complexité:
+        log(n)
 
     Précondition : `liste` est triée par ordre croissant
     Exemple(s) :

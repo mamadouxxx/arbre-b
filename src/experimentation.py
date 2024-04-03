@@ -30,12 +30,11 @@ class experimentation:
         print("Non fonctionnel")
         for n in [2, 4, 5] + list(range(6, 37, 2)) + [7, 9, 11, 13]:
             self.btree.insertion(n)
-        
-
+            
         self.btree.suppr(20,2)
-        Visualization(self.btree).render()
         #for n in [14,10,20,18,16,24,6]
         
+        Visualization(self.btree).render()
         
         print(self.btree)
         
