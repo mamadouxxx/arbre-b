@@ -11,15 +11,14 @@ class Visualization() :
         self.add_node_to_graph(self.btree.root)
         
     def add_node_to_graph(self, node):
-#        nodeKeys = repr(node.keys)
-        print(repr(node.keys))
+#        print(repr(node.keys))
         nodeKeys = repr(node.keys)
         self.g.node(nodeKeys)
         for child in node.childs:
             childKeys = repr(child.keys)
             self.g.node(childKeys)
             self.g.edge(nodeKeys, childKeys)
-            self.add_node_to_graph(childKeys)
+            self.add_node_to_graph(child)
             
     def render(self):
         self.g.format = 'jpg'

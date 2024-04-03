@@ -6,36 +6,41 @@ from BTree import Btree
 
 
 class experimentation:
-    def __init__(self):
+    def __init__(self, exp):
         self.btree = Btree(2, Node([]))
-        self.experimentationInsert1()
+        if exp == "1":
+            self.experimentationInsert1()
+        elif "2":
+            self.experimentationSuppr1()
+        else :
+            None 
         
-    def experimentationInsert1(self):
-        #self.btree.insertion(2)
-        #self.isCorrect(Btree(2,Node([2])))
-        
-        #self.btree.insertion(4)
-        #self.isCorrect(Btree(2,Node([2,4])))
-        
+    def experimentationInsert1(self):        
         for n in [2, 4, 5] + list(range(6, 37, 2)) + [7, 9, 11, 13]:
             self.btree.insertion(n)
             
-        #Visualization(self.btree).render()
+        Visualization(self.btree).render()
             
-        
         print(self.btree)
+    
+    def experimentationSuppr1(self):
+        for n in [2, 4, 5] + list(range(6, 37, 2)) + [7, 9, 11, 13]:
+            self.btree.insertion(n)
+        
+
+        #for n in [14,10,20,18,16,24,6]
         
        
        
        
        
        
-       
-    def isCorrect(self, BTreeTest):
-        if (self.btree.equals(BTreeTest)):
-            print("Correct")
-        else:
-            print("error")
+# fonction temporaire pour tester la correspondance des arbres de manière automatique et simple visuellement
+#     def isCorrect(self, BTreeTest):
+#         if (self.btree.equals(BTreeTest)):
+#             print("Correct")
+#         else:
+#             print("error")
 
 
 
@@ -49,7 +54,9 @@ class experimentation:
 
 
 if __name__ == "__main__":
-    experiment = experimentation()
+    response = input("Quelle expérimentation voulez vous (1 ou 2)")
+    experiment = experimentation(response)
+
 
 
 
