@@ -135,22 +135,11 @@ class Node() :
     def suppression(self, value, k, is_root=False) :
         """
         Exemple(s):
-        >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
-        >>> node.suppression(50, 2)
-        True
-        >>> node.search(50)
-        >>> node.suppression(26, 2)
-        True
-        >>> node.search(26)
-        >>> node.suppression(25, 2)
-        True
-        >>> node.search(25)
-        >>> node.suppression(12, 2)
-        True
-        >>> node.suppression(3, 2)
+        >>> node = Node([42], [Node([14]), Node([50])])
+        >>> node.suppression(14, 2)
         True
         >>> node
-        Node([42], [Node([4]), Node([58])])
+        Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([58])])
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
@@ -159,31 +148,37 @@ class Node() :
         else:
             (ok) = self.childs[index].suppression(value, k, False)
             if (not ok):
+                # left sibling lookup
                 if(index - 1 >= 0 and (len(self.childs[index-1].keys) - 1 >= k//2)):
                     borrowed = self.childs[index-1].keys.pop()
-                    replaced = self.keys.pop(0)
-                    self.keys.insert(0, borrowed)
-                    self.childs[index].keys.insert(0, replaced)
+                    replaced = self.keys.pop(index-1)
+                    self.keys.insert(index-1, borrowed)
+                    self.childs[index].keys.insert(index-1, replaced) #
+                # right sibling lookup
                 elif(index + 1 < len(self.childs) and (len(self.childs[index+1].keys) - 1 >= k//2)):
-                    borrowed = self.childs[index+1].keys.pop()
+                    borrowed = self.childs[index+1].keys.pop(index-1)
                     replaced = self.keys.pop()
-                    self.childs[index].keys.insert(len(self.keys), borrowed)
+                    self.keys.insert(len(self.keys), borrowed)
                     self.childs[index].keys.insert(len(self.childs[index].keys), replaced) # len(self.childs)
+                # when deletion of the key violates the property of the minimum number of keys
+                # merge
                 else:
+                    # right sibling lookup
                     if(index-1 >= 0):
                         replaced = self.keys.pop(index-1)
                         borrowed = self.childs[index-1].keys.pop()
                         self.childs[index].keys.insert(len(self.childs[index].keys), replaced)
-                        self.childs[index].keys.insert(0, borrowed)
+                        self.childs[index].keys.insert(index-1, borrowed)
                         del self.childs[index-1]
+                    # left sibling lookup
                     elif(index + 1 < len(self.childs)):
+                        print("icic")
                         replaced = self.keys.pop(index)
                         borrowed = self.childs[index+1].keys.pop()
-                        self.childs[index].keys.insert(0, borrowed)
-                        self.childs[index].keys.insert(len(self.childs[index].keys), replaced)
+                        self.childs[index].keys.insert(index, replaced)
+                        self.childs[index].keys.insert(len(self.childs[index].keys), borrowed)
                         del self.childs[index+1]
                 ok = not ok
-        
         return ok        
         
     def splitNode(self) :
