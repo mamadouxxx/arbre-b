@@ -1,6 +1,4 @@
 from util import recherche_dichotomique
-#from Visualization import *
-#from BTree import *
 
 class Node() :
     
@@ -10,6 +8,11 @@ class Node() :
         
     def isLeaf(self):
         """
+        verifie si un noeud est une feuille
+        
+        Return :
+            bool : (true) si feuille, false sinon
+        Exemple(s):
         >>> Node([12, 42]).isLeaf()
         True
         >>> Node([12, 42], [Node([1]), Node([25]), Node([50])]).isLeaf()
@@ -22,6 +25,16 @@ class Node() :
     
     def search(self, value):
         """
+        Rechercher une valeur dans un noeud
+        
+        Params :
+            value : (int), valeur à rechercher
+            
+        Return :
+            (Node, index) : renvoie le noeud qui contient la valeur recherchée et son indice
+                            dans ce noeud.
+                            ne renvoie rien si valeur inéxistante
+                            
         Exemple(s):
         >>> Node([5,25]).search(5)
         (Node([5, 25]), 0)
@@ -43,7 +56,15 @@ class Node() :
         
     def is_ArbreB(self, k, is_root = False):
         """
-        Verification de l'équilibrage de l'arbre
+        Verification de l'équilibrage d'un noeud
+        • Toutes les feuilles ont la même profondeur, à savoir la hauteur h de l’arbre.
+        • k/2 ≤ n ≤ k. Taux de remplissage min = 50%, et moyen 75%.
+          n = nombre de clés contenus dans le nœud x
+        • Si x n’est pas une feuille :
+            • pour 2<=i<=n, pour toute clef x du filsi : clesi <= x <=clesi+1
+            • Pour toute clef x du fils1 : x <= cles1
+        • Si x n’est pas la racine, n est compris entre k/2 et k.
+        
         Params :
             k => number of keys in node
         Return :
@@ -86,9 +107,16 @@ class Node() :
     
     def insert(self, value, k):
         """
-        Return : (node, index) or Nothing
-        Exemple(s):
+        insérer une valeur dans un noeud
         
+        Params :
+            value : (int), valeur à insérer
+            
+        Return : (True, _,_,_) si insertion réussi où (true) si valeur déjà présente
+                 (False, _,_,_) si l'insertion a été faite mais que l'arbre n'est pas équilibré,
+                                 dans ce cas on délègue le travail restant au père.
+        
+        Exemple(s):
         >>> node = Node([])
         >>> node.insert(5,1)
         (True, None, None, None)
@@ -117,8 +145,6 @@ class Node() :
         >>> node = Node([12, 42], [Node([2, 3, 4]), Node([25]), Node([50])])
         >>> node.insert(1, 3)
         (True, None, None, None)
-        
-        
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (not found) :
@@ -146,6 +172,7 @@ class Node() :
         
     def suppression(self, value, k, is_root=False) :
         """
+        supprime une 
         Exemple(s):
         >>> node = Node([42], [Node([14]), Node([50])])
         >>> node.suppression(14, 2)
@@ -195,6 +222,12 @@ class Node() :
         
     def splitNode(self) :
         """
+        Divise un noeud
+        
+        Return :
+            (milieu, gauche, droite) : la valuer du milieu, de gauche et de droite.
+        
+        Exemple(s):
         >>> Node([10,20,25]).splitNode()
         (20, Node([10]), Node([25]))
         >>> Node([12, 20, 22, 40]).splitNode()
@@ -210,6 +243,11 @@ class Node() :
     
     def linearisation(self):
         """
+        linéarise un noeud en une liste triée dans l'order croissant
+        
+        Return :
+            list : int
+
         Exemple(s):
         >>> Node([12, 42], [Node([2, 3]), Node([13, 15]), Node([45])]).linearisation()
         [2, 3, 12, 13, 15, 42, 45]
@@ -228,6 +266,9 @@ class Node() :
         
         
     def __repr__(self) :
+        """
+        répresentation d'un noeud et de ces fils.
+        """
         return (f"Node({self.keys}"
                 + (f", {self.childs})" if len(self.childs) > 0 else ")"))
 

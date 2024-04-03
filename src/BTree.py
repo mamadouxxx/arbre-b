@@ -9,6 +9,14 @@ class Btree() :
         
     def search(self, value):
         """
+        Rechercher une valeur dans l'arbre
+        Params :
+            value : (int), valeur à rechercher
+            
+        Return :
+            (Node, index) : renvoie le noeud qui contient la valeur recherchée et son indice
+                            dans ce noeud.
+                            ne renvoie rien si valeur inéxistante
         Exemple(s):
         >>> Btree(2, Node([5,25])).search(25)
         (Node([5, 25]), 1)
@@ -20,23 +28,30 @@ class Btree() :
 
     def insertion(self, value):
         """
+        insérer une valeur dans l'arbre
+        
+        Params :
+            value : (int), valeur à insérer
+        
+        Return :
+            bool : (true) si insertion réussi, false sinon.
+            
         Exemple(s):
-#         >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
-#         >>> a.insertion(1)
-#         True
-#         >>> a.search(1)
-#         (Node([1]), 0)
-#         >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([100])]))
-#         >>> b.insertion(10)
-#         True
-#         >>> b.search(10)
-#         (Node([1, 10, 11]), 1)
-#         >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
-#         True
+        >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
+        >>> a.insertion(1)
+        True
+        >>> a.search(1)
+        (Node([1]), 0)
+        >>> b= Btree(3, Node([12,25,50], [Node([1,11]), Node([20]), Node([100])]))
+        >>> b.insertion(10)
+        True
+        >>> b.search(10)
+        (Node([1, 10, 11]), 1)
+        >>> Btree(2, Node([4, 10], [Node([1, 3]), Node([25]), Node([50])])).insertion(4)
+        True
         >>> c = Btree(2,Node([1, 10]))
         >>> c.insertion(15)
         True
-
         """
         fini, milieu, g, d = self.root.insert(value, self.k)
         if (not fini):
@@ -47,7 +62,11 @@ class Btree() :
     
     def linearisation(self):
         """
+        linéarise l'arbre en une liste triée dans l'order croissant
         
+        Return :
+            list : int
+            
         Exemple(s):
         >>> a =Btree(2, Node([12, 42], [Node([2, 3]), Node([25]), Node([50])]))
         >>> a.linearisation()
