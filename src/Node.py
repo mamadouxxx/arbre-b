@@ -174,11 +174,11 @@ class Node() :
         """
         supprime une 
         Exemple(s):
-        >>> node = Node([42], [Node([14]), Node([50])])
-        >>> node.suppression(14, 2)
+        >>> node = Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([50, 58])])
+        >>> node.suppression(50, 2)
         True
-        >>> node
-        Node([12, 42], [Node([3, 4]), Node([25, 26]), Node([58])])
+        >>> node.search(50)
+        
         """
         (found, index) = recherche_dichotomique(value, self.keys)
         if (self.isLeaf()) :
@@ -211,7 +211,6 @@ class Node() :
                         del self.childs[index-1]
                     # left sibling lookup
                     elif(index + 1 < len(self.childs)):
-                        print("icic")
                         replaced = self.keys.pop(index)
                         borrowed = self.childs[index+1].keys.pop()
                         self.childs[index].keys.insert(index, replaced)
